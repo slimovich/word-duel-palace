@@ -1,0 +1,81 @@
+[tool.poetry]
+name = "word-duel-palace-backend"
+version = "0.1.0"
+description = "Word Duel Palace — authoritative FastAPI/WebSocket game server."
+authors = ["Word Duel Palace"]
+package-mode = false
+
+[tool.poetry.dependencies]
+python = ">=3.11,<4.0"
+fastapi = ">=0.78"
+uvicorn = { extras = ["standard"], version = ">=0.20" }
+websockets = ">=10,<13"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0"
+pytest-asyncio = "^0.24"
+black = "^24.0"
+isort = "^5.13"
+flake8 = "^7.0"
+flake8-pyproject = "^1.2"
+pymarkdownlnt = "^0.9"
+coverage = { extras = ["toml"], version = "^7.0" }
+
+[build-system]
+requires = ["poetry-core>=2.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pymarkdown]
+strict = true
+
+[tool.pymarkdown.plugins.md013]
+enabled = true
+line_length = 100
+code_block_line_length = 0
+heading_line_length = 100
+
+[tool.flake8]
+max-line-length = 100
+extend-ignore = ["E203", "E712", "E711", "E501", "W503", "C8", "WPS"]
+select = ["C", "E", "F", "W"]
+exclude = [".git", "__pycache__", ".venv", "venv", "dist", "build"]
+application-import-names = ["app"]
+
+[tool.black]
+line-length = 100
+target-version = ['py311']
+
+[tool.isort]
+profile = "black"
+line_length = 100
+include_trailing_comma = true
+known_first_party = ["app"]
+sections = ["FUTURE", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
+
+[tool.coverage.report]
+precision = 2
+ignore_errors = true
+exclude_lines = [
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "def __repr__",
+    "@abstractmethod",
+    "pragma: no cover",
+    "raise NotImplementedError",
+    "if TYPE_CHECKING",
+]
+
+[tool.coverage.run]
+branch = true
+omit = [
+    "main.py",
+    "*/tests/*",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
