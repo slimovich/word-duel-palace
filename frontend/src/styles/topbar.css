@@ -1,0 +1,24 @@
+.topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 18px;
+  background: linear-gradient(180deg, var(--wood-light), var(--wood));
+  border-bottom: 3px solid var(--wood-dark);
+  box-shadow: 0 3px 8px var(--shadow);
+}
+.brand { display: flex; align-items: center; gap: 10px; }
+.brand-crest { font-size: 1.6rem; color: var(--gold-bright); text-shadow: 0 1px 2px #000; }
+.brand-name {
+  font-family: var(--font-title); font-weight: 700; font-size: 1.25rem;
+  color: #fff4dc; letter-spacing: 0.5px; text-shadow: 0 2px 3px rgba(0,0,0,.45);
+}
+.topbar-controls { display: flex; align-items: center; gap: 10px; }
+.icon-btn {
+  background: var(--parchment); color: var(--ink);
+  border: 2px solid var(--wood-dark); border-radius: 8px;
+  padding: 5px 10px; cursor: pointer; font-size: 0.82rem; font-weight: 600;
+  box-shadow: 0 2px 0 var(--wood-dark);
+}
+.icon-btn:hover { background: var(--tile-face-hi); }
+.conn-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.conn-dot.on { background: var(--leaf-bright); box-shadow: 0 0 6px var(--leaf-bright); }
+.conn-dot.off { background: #c44; }

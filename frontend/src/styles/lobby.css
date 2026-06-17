@@ -1,0 +1,28 @@
+.lobby { justify-content: center; }
+.lobby-card { max-width: 460px; width: 100%; text-align: center; }
+.room-code { display: flex; gap: 8px; justify-content: center; margin: 14px 0; cursor: pointer; }
+.code-tile {
+  width: 46px; height: 56px; display: grid; place-items: center;
+  font-family: var(--font-title); font-size: 1.8rem; font-weight: 700;
+  color: var(--wood-dark);
+  background: linear-gradient(160deg, var(--tile-face-hi), var(--tile-face));
+  border: 2px solid var(--tile-edge); border-radius: 8px;
+  box-shadow: 0 4px 0 var(--tile-edge), inset 0 2px 6px rgba(255,255,255,.4);
+}
+.copy-btn { margin: 0 auto 16px; display: block; }
+.spinner-row { display: flex; align-items: center; justify-content: center; gap: 10px; color: var(--ink-soft); margin-bottom: 18px; }
+
+.code-plain {
+  display: block; margin: 0 auto 12px; width: 160px; text-align: center;
+  font-family: var(--font-title); font-size: 1.1rem; font-weight: 700;
+  letter-spacing: 5px; color: var(--wood-dark);
+  background: #fffaf0; border: 2px dashed var(--wood); border-radius: 8px;
+  padding: 6px 8px; cursor: text;
+}
+.code-plain:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(232,183,67,.3); }
+
+.lobby-bot { border-top: 2px dashed var(--wood-light); padding-top: 14px; margin-top: 16px; }
+
+@media (max-width: 560px) {
+  .code-tile { width: 38px; height: 48px; font-size: 1.4rem; }
+}

@@ -1,0 +1,21 @@
+:root {
+  --wood-dark: #6b4423;
+  --wood: #8a5a2b;
+  --wood-light: #b07a3e;
+  --tile-face: #e8c98f;
+  --tile-face-hi: #f3dcab;
+  --tile-edge: #b98a4c;
+  --parchment: #f3e4c3;
+  --parchment-deep: #e7d2a4;
+  --ink: #3a2a18;
+  --ink-soft: #5e4a33;
+  --gold: #e8b743;
+  --gold-bright: #ffd76a;
+  --crimson: #b23b3b;
+  --leaf: #4e9a52;
+  --leaf-bright: #6dc46f;
+  --amber: #d99a2b;
+  --shadow: rgba(40, 24, 8, 0.35);
+  --font-title: "Georgia", "Palatino Linotype", serif;
+  --font-body: "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+}

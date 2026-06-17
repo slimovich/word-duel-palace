@@ -19,9 +19,11 @@ export function loadDictionary() {
       return WORDS;
     })
     .catch(() => {
-      WORDS = new Set(); // on failure, treat as empty (server still validates)
+      // Keep validation unknown on failure so the server remains the final judge.
+      WORDS = null;
+      loading = null;
 
-      return WORDS;
+      return null;
     });
 
   return loading;

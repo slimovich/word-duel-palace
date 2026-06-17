@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 
 /*
  * Original hand-drawn mage character (SVG). Two colour variants so the two
@@ -19,11 +19,13 @@ const PALETTES = {
   },
 };
 
-export default function Character({ variant = "player", facing = "right" }) {
+// ref forwards to the .character-art div so Game.jsx can drive GSAP animations
+// (idleBob, lunge, hurt, defeat) directly on the element.
+const Character = forwardRef(function Character({ variant = "player", facing = "right" }, ref) {
   const c = PALETTES[variant] || PALETTES.player;
   const mirror = facing === "left";
   return (
-    <div className="character-art">
+    <div ref={ref} className="character-art">
       <svg viewBox="0 0 160 220" width="100%" height="100%" aria-hidden
         style={{ transform: mirror ? "scaleX(-1)" : "none" }}>
         {/* ground shadow */}
@@ -83,4 +85,6 @@ export default function Character({ variant = "player", facing = "right" }) {
       </svg>
     </div>
   );
-}
+});
+
+export default Character;

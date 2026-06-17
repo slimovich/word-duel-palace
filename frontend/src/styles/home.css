@@ -1,0 +1,45 @@
+.home { justify-content: center; }
+.home-card { max-width: 460px; width: 100%; }
+.field-label { font-weight: 700; color: var(--ink-soft); font-size: 0.85rem; }
+.text-input {
+  width: 100%; padding: 11px 12px; margin: 6px 0 14px;
+  border: 2px solid var(--wood); border-radius: 10px;
+  background: #fffaf0; color: var(--ink); font-size: 1rem;
+}
+.text-input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(232,183,67,.3); }
+.home-actions { display: flex; flex-direction: column; gap: 12px; }
+.join-row { display: flex; gap: 8px; }
+.code-input { text-align: center; letter-spacing: 4px; font-weight: 700; text-transform: uppercase; margin: 0; }
+
+.home-rules { margin-top: 18px; border-top: 2px dashed var(--wood-light); padding-top: 14px; }
+.home-rules h3 { margin: 0 0 6px; color: var(--wood-dark); font-family: var(--font-title); }
+.home-rules ul { margin: 0; padding-left: 18px; color: var(--ink-soft); line-height: 1.7; }
+.chip {
+  display: inline-block; padding: 1px 7px; border-radius: 6px; margin-left: 4px;
+  font-size: 0.75rem; font-weight: 700; color: #3a2a18;
+}
+.chip.x2 { background: var(--gold-bright); }
+.chip.shield { background: #9fd4ff; }
+.chip.burn { background: #ffb27a; }
+
+/* ---- bot difficulty selector ---- */
+.vs-bot { margin-top: 16px; }
+.vs-bot-label {
+  text-align: center; color: var(--ink-soft); font-size: .82rem; font-weight: 700;
+  font-style: italic; margin-bottom: 8px;
+}
+.bot-row { display: flex; gap: 8px; justify-content: center; }
+.bot-btn {
+  flex: 1; display: flex; flex-direction: column; align-items: center; gap: 1px;
+  padding: 9px 6px; color: #fff; box-shadow: 0 4px 0 rgba(0,0,0,.28);
+}
+.bot-btn .bot-diff { font-size: 1rem; font-weight: 800; }
+.bot-btn .bot-sub { font-size: .68rem; opacity: .9; font-weight: 600; }
+.bot-btn.bot-easy { background: linear-gradient(180deg, var(--leaf-bright), var(--leaf)); }
+.bot-btn.bot-medium { background: linear-gradient(180deg, #f0b94e, var(--amber)); color: #4a2f0c; }
+.bot-btn.bot-hard { background: linear-gradient(180deg, #e2604f, var(--crimson)); }
+.bot-btn:hover:not(:disabled) { filter: brightness(1.06); }
+
+@media (max-width: 560px) {
+  .join-row { flex-direction: column; }
+}

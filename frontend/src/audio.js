@@ -106,12 +106,23 @@ class AudioEngine {
         this._tone({ freq: 180, type: "sine", dur: 0.12, gain: 0.35, glideTo: 120 });
         this._noise({ dur: 0.08, gain: 0.12, freq: 800 });
         break;
-      case "tap": // light wooden tap
-        this._tone({ freq: 520, type: "triangle", dur: 0.06, gain: 0.22, glideTo: 380 });
+      case "tap": { // pick a tile: muted wooden knock -> restrained low whoosh -> quiet landing lock
+        this._noise({ dur: 0.02, gain: 0.16, freq: 450, type: "lowpass" });
+        this._tone({ freq: 175, type: "triangle", dur: 0.05, gain: 0.26, attack: 0.008, glideTo: 110 });
+        this._noise({ dur: 0.07, gain: 0.07, freq: 600, type: "lowpass", when: 0.02 });
+        this._tone({ freq: 230, type: "sine", dur: 0.05, gain: 0.18, attack: 0.007,
+          when: 0.12, glideTo: 150 });
+        this._noise({ dur: 0.018, gain: 0.09, freq: 400, type: "lowpass", when: 0.12 });
         break;
-      case "deselect": // softer tap
-        this._tone({ freq: 320, type: "triangle", dur: 0.05, gain: 0.14, glideTo: 240 });
+      }
+      case "deselect": { // unpick: same family, softer + shorter + a less decisive landing
+        this._noise({ dur: 0.016, gain: 0.09, freq: 420, type: "lowpass" });
+        this._tone({ freq: 150, type: "triangle", dur: 0.04, gain: 0.15, attack: 0.01, glideTo: 100 });
+        this._noise({ dur: 0.05, gain: 0.045, freq: 550, type: "lowpass", when: 0.018 });
+        this._tone({ freq: 190, type: "sine", dur: 0.045, gain: 0.1, attack: 0.012,
+          when: 0.095, glideTo: 140 });
         break;
+      }
       case "valid": { // bright magical chime (arpeggio)
         const notes = [523.25, 659.25, 783.99, 1046.5];
         notes.forEach((f, i) =>

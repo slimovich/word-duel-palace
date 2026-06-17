@@ -1,0 +1,231 @@
+/* ---- arena layout ---- */
+.arena-screen {
+  width: 100%; max-width: 940px; margin: 0 auto;
+  justify-content: flex-start; gap: 14px;
+}
+
+.arena {
+  position: relative; width: 100%; height: 410px;
+  border-radius: 16px; border: 3px solid var(--wood-dark);
+  overflow: hidden;
+  box-shadow: 0 10px 26px var(--shadow), inset 0 0 60px rgba(60,36,12,.35);
+  background:
+    radial-gradient(120% 80% at 50% 6%, rgba(255,244,214,.45), transparent 55%),
+    radial-gradient(90% 70% at 50% 120%, rgba(70,44,20,.5), transparent 60%),
+    linear-gradient(180deg, #cdb488 0%, #b59667 38%, #8f7048 100%);
+  background-color: #b59667;
+}
+.arena::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 86px;
+  background:
+    repeating-linear-gradient(90deg, rgba(60,40,18,.18) 0 2px, transparent 2px 64px),
+    linear-gradient(180deg, #7c5c34, #5c4222);
+  box-shadow: inset 0 6px 14px rgba(0,0,0,.3);
+}
+.arena::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(255,245,220,.10) 0 26px, transparent 26px 30px) 8% 0/40px 100% no-repeat,
+    linear-gradient(90deg, rgba(255,245,220,.10) 0 26px, transparent 26px 30px) 92% 0/40px 100% no-repeat,
+    radial-gradient(circle at 50% 30%, rgba(255,240,210,.12), transparent 40%);
+}
+
+/* ---- arena topbar (turn chip + timer) ---- */
+.arena-topbar {
+  position: absolute; top: 10px; left: 50%; transform: translateX(-50%);
+  z-index: 6; display: flex; flex-direction: column; align-items: center; gap: 6px;
+  width: min(420px, 86%);
+}
+.turn-chip {
+  font-family: var(--font-title); font-weight: 700; font-size: 1.05rem;
+  padding: 4px 20px; border-radius: 18px; color: #fff;
+  text-shadow: 0 1px 2px rgba(0,0,0,.45); border: 2px solid rgba(0,0,0,.25);
+}
+.turn-chip.yours { background: linear-gradient(180deg, var(--leaf-bright), var(--leaf)); box-shadow: 0 0 14px rgba(109,196,111,.6); }
+.turn-chip.theirs { background: linear-gradient(180deg, #9a7a52, var(--wood)); }
+
+.timer-wrap {
+  position: relative; width: 100%; max-width: 420px; height: 14px;
+  background: rgba(0,0,0,.3); border-radius: 8px; border: 2px solid var(--wood-dark);
+  overflow: hidden;
+}
+.timer-bar { height: 100%; background: linear-gradient(90deg, var(--gold-bright), var(--amber)); transition: width .12s linear; }
+.timer-bar.danger { background: linear-gradient(90deg, #ff8a5e, var(--crimson)); }
+.timer-label { position: absolute; right: 8px; top: -3px; font-size: 0.72rem; font-weight: 700; color: #fff; text-shadow: 0 1px 2px #000; }
+
+/* ---- spell stack (composed word + live totals) ---- */
+.spell-stack {
+  position: absolute; top: 70px; left: 50%; transform: translateX(-50%);
+  z-index: 6; width: min(94%, 580px);
+  display: flex; flex-direction: column; align-items: center; gap: 7px;
+}
+.spell-row {
+  display: flex; gap: 7px; align-items: center; justify-content: center;
+  min-height: 58px; padding: 6px 14px; border-radius: 12px;
+  background: rgba(30,18,6,.30); border: 2px dashed rgba(255,245,220,.45);
+  max-width: 92%; flex-wrap: wrap;
+}
+.spell-row.glow { border-color: var(--gold-bright); box-shadow: 0 0 22px var(--gold-bright); background: rgba(232,183,67,.25); }
+.spell-row.error { border-color: var(--crimson); }
+.spell-hint { color: rgba(255,245,220,.72); font-style: italic; font-size: .92rem; }
+
+.spell-total {
+  display: flex; gap: 7px; align-items: center; justify-content: center; flex-wrap: wrap;
+}
+.spell-total.too-short { opacity: .72; }
+.too-short-note {
+  font-family: var(--font-body); font-size: .72rem; font-weight: 700; font-style: italic;
+  color: #ffe9c4; opacity: .85;
+}
+
+.stat {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-family: var(--font-title); font-weight: 800; font-size: .92rem;
+  padding: 3px 11px; border-radius: 13px; color: #fff;
+  border: 2px solid rgba(0,0,0,.22);
+  text-shadow: 0 1px 2px rgba(0,0,0,.5); box-shadow: 0 2px 0 rgba(0,0,0,.22);
+}
+.stat-ico { font-size: .95rem; filter: drop-shadow(0 1px 1px rgba(0,0,0,.4)); }
+.stat.atk {
+  background: linear-gradient(180deg, #ff7a4a, #d23b2a); font-size: 1.2rem;
+  padding: 3px 14px; box-shadow: 0 2px 0 #8a1d10, 0 0 14px rgba(255,90,50,.5);
+}
+.atk-num { display: inline-block; min-width: 14px; text-align: center; }
+.stat.bonus { background: linear-gradient(180deg, #caa23e, #9a7a16); }
+.stat.x2c { background: linear-gradient(180deg, #ffd76a, #d99a2b); color: #4a2f0c; text-shadow: none; }
+.stat.shc { background: linear-gradient(180deg, #7fc0ff, #3f7cc0); }
+.stat.bnc { background: linear-gradient(180deg, #ff9a4a, #c4621f); }
+
+/* ---- word validity indicator ---- */
+.word-status {
+  font-family: var(--font-body); font-size: .76rem; font-weight: 800;
+  padding: 2px 9px; border-radius: 11px; letter-spacing: .3px;
+}
+.word-status.short { color: #ffe9c4; background: rgba(0,0,0,.25); font-weight: 700; font-style: italic; }
+.word-status.invalid { color: #fff; background: linear-gradient(180deg, #e2604f, #b23b3b); box-shadow: 0 2px 0 #7c241c; }
+.word-status.valid { color: #0c3a1c; background: linear-gradient(180deg, #8be29a, #4e9a52); box-shadow: 0 2px 0 #2c5c33; }
+
+/* ---- fighters ---- */
+.fighter {
+  position: absolute; bottom: 14px; z-index: 4;
+  width: 150px; display: flex; flex-direction: column; align-items: center;
+}
+.fighter.left { left: 3%; }
+.fighter.right { right: 3%; }
+.character-art {
+  width: 132px; height: 182px;
+  filter: drop-shadow(0 6px 6px rgba(0,0,0,.3));
+}
+
+.nameplate {
+  margin-top: 2px; font-family: var(--font-title); font-weight: 700; font-size: .92rem;
+  color: #fff4dc; text-shadow: 0 1px 2px rgba(0,0,0,.6);
+  background: rgba(40,24,8,.5); padding: 1px 12px; border-radius: 10px;
+}
+
+/* ---- HP pill (under each fighter's name) ---- */
+.hearts { display: flex; align-items: center; gap: 6px; margin-top: 5px; }
+.heart { color: #e34b4b; font-size: 1.2rem; filter: drop-shadow(0 1px 1px rgba(0,0,0,.4)); }
+.hp-pill {
+  position: relative; width: 96px; height: 18px; border-radius: 10px;
+  background: rgba(0,0,0,.35); border: 2px solid var(--wood-dark); overflow: hidden;
+}
+.hp-pill-fill { height: 100%; transition: width .45s cubic-bezier(.3,.8,.4,1); }
+.hp-pill-fill.green  { background: linear-gradient(180deg, var(--leaf-bright), var(--leaf)); }
+.hp-pill-fill.yellow { background: linear-gradient(180deg, #f4d35e, #d9a72b); }
+.hp-pill-fill.red    { background: linear-gradient(180deg, #e87a5e, #b23b3b); }
+.hp-pill-text {
+  position: absolute; inset: 0; display: grid; place-items: center;
+  font-size: .72rem; font-weight: 700; color: #fff; text-shadow: 0 1px 1px #000;
+}
+.badge { font-size: .72rem; font-weight: 700; padding: 1px 6px; border-radius: 8px; color: #1a2630; }
+.shield-badge { background: #9fd4ff; }
+.burn-badge   { background: #ffb27a; }
+
+/* ---- spell bolt (hidden by default, GSAP drives position + opacity) ---- */
+.spell-bolt {
+  position: absolute; top: 44%; width: 26px; height: 26px; border-radius: 50%;
+  z-index: 5; pointer-events: none; opacity: 0;
+}
+.spell-bolt.player { background: radial-gradient(circle at 40% 40%, #ffffff, #8fe0ff 55%, #3f7cc0); box-shadow: 0 0 18px 6px rgba(143,224,255,.8); }
+.spell-bolt.rival  { background: radial-gradient(circle at 40% 40%, #ffffff, #c79bff 55%, #5aa66a); box-shadow: 0 0 18px 6px rgba(199,155,255,.8); }
+
+/* ---- floating combat text (GSAP drives position and opacity) ---- */
+.float-layer { position: absolute; top: -6px; left: 0; right: 0; height: 0; z-index: 7; pointer-events: none; }
+.cfloat {
+  position: absolute; left: 50%;
+  font-family: var(--font-title); font-weight: 700; white-space: nowrap;
+  opacity: 0;
+}
+.cfloat.dmg  { font-size: 1.7rem; color: #ffec99; text-shadow: 0 2px 4px #000, 0 0 12px rgba(255,120,60,.8); }
+.cfloat.word { font-size: 1rem; color: #fff4dc; text-shadow: 0 2px 3px #000; top: 26px; }
+
+/* ---- damage burst (numbers over fighter on hit — GSAP drives motion) ---- */
+.dmg-burst {
+  position: absolute; left: 50%; top: 4px; transform: translateX(-50%);
+  width: 0; height: 0; pointer-events: none; z-index: 9;
+}
+.burst-total {
+  position: absolute; left: 50%; top: -4px;
+  font-family: var(--font-title); font-weight: 900; font-size: 2.5rem;
+  color: #ff4a3a; -webkit-text-stroke: 2px #5a0d08;
+  text-shadow: 0 3px 6px rgba(0,0,0,.6), 0 0 16px rgba(255,80,50,.7);
+  white-space: nowrap; opacity: 0;
+}
+.dmg-burst.burn .burst-total { color: #ff8a2a; -webkit-text-stroke: 2px #5a2a08; }
+.burst-part {
+  position: absolute; left: 50%; top: 0;
+  font-family: var(--font-title); font-weight: 800; font-size: 1.15rem;
+  color: #ff6a4a; -webkit-text-stroke: 1px #5a0d08;
+  text-shadow: 0 2px 3px rgba(0,0,0,.55); white-space: nowrap;
+  opacity: 0;
+}
+.dmg-burst.burn .burst-part { color: #ffb15a; }
+
+/* ---- character defeat + KO smoke (all motion driven by GSAP) ---- */
+.ko-smoke { position: absolute; inset: 0; pointer-events: none; z-index: 12; }
+.ko-smoke span {
+  position: absolute; left: 50%; top: 58%; width: 76px; height: 76px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(232,224,210,.98), rgba(208,197,178,.6) 45%, rgba(205,194,176,0) 75%);
+  opacity: 0;
+}
+
+/* ---- your hand tray ---- */
+.tray {
+  width: 100%; padding: 14px;
+  background: linear-gradient(180deg, var(--wood-light), var(--wood));
+  border: 3px solid var(--wood-dark); border-radius: 14px;
+  box-shadow: 0 6px 16px var(--shadow);
+  display: flex; flex-direction: column; gap: 12px; align-items: center;
+}
+.tray.active { box-shadow: 0 0 0 3px rgba(255,215,106,.55), 0 6px 16px var(--shadow); }
+.tray-rack { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; padding: 6px 4px 2px; }
+.tray-controls { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+
+/* ---- battle log ---- */
+.battle-log {
+  width: 100%; max-width: 560px; height: 132px; overflow-y: auto;
+  background: linear-gradient(160deg, #fffaf0, var(--parchment));
+  border: 2px solid var(--wood); border-radius: 12px;
+  padding: 8px 12px; box-shadow: inset 0 2px 10px rgba(120,80,40,.25);
+  font-size: 0.9rem;
+}
+.log-line { padding: 2px 0; border-bottom: 1px dotted rgba(120,80,40,.25); color: var(--ink-soft); }
+.log-line.play   { color: var(--wood-dark); font-weight: 600; }
+.log-line.warn   { color: var(--crimson); }
+.log-line.burn   { color: #c4621f; font-weight: 600; }
+.log-line.system { color: #2a6f3a; font-style: italic; }
+
+/* ---- game-over overlay extras ---- */
+.rematch-prompt { margin: 10px 0 2px; font-weight: 700; color: var(--wood-dark); }
+.rematch-hint { margin: 0 0 6px; font-size: .85rem; font-weight: 700; color: var(--leaf); }
+
+/* ---- responsive ---- */
+@media (max-width: 640px) {
+  .arena { height: 300px; }
+  .character-art { width: 96px; height: 132px; }
+  .fighter { width: 110px; }
+  .hp-pill { width: 78px; }
+  .tray-controls .btn { flex: 1; }
+  .cfloat.dmg { font-size: 1.3rem; }
+}
